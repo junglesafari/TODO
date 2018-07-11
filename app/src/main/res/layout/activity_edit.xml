@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editActivity">
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="86dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="title" />
+
+    <EditText
+
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="167dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="edit" />
+<LinearLayout
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/editText2"
+    android:layout_marginTop="10dp">
+    <TextView
+
+        android:layout_alignParentStart="true"
+        android:id="@+id/edit_date_textview"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+    <ImageView
+        android:id="@+id/edit_date_image"
+        android:clickable="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/calenderimage"
+        android:layout_below="@id/editText2"
+        android:layout_toRightOf="@+id/edit_date_textview"/>
+</LinearLayout>
+<LinearLayout
+    android:id="@+id/linearlayout2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/linearlayout"
+    android:layout_marginTop="10dp">
+    <TextView
+
+        android:layout_alignParentStart="true"
+        android:id="@+id/edit_time_textview"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+    <ImageView
+        android:id="@+id/edit_time_image"
+        android:clickable="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/clockimage"
+        android:layout_below="@id/editText2"
+        android:layout_toRightOf="@+id/edit_date_textview"/>
+</LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_below="@+id/linearlayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setSavechange"
+        android:text="Edit" />
+
+</RelativeLayout>
