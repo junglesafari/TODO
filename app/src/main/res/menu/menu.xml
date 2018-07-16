@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item android:icon="@drawable/check1"
+<item
      android:id="@+id/addcheck"
-    app:showAsAction="always" android:title="check"
+    app:showAsAction="always"
+    android:title="ADD"
     />
-
+<item android:id="@+id/orderbydate" android:title="ORDER BY DATE"/>
+    <item android:title="ORDER BY TITLE" android:id="@+id/orderbytitle"/>
 </menu>

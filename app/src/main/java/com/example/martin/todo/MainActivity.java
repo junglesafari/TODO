@@ -44,16 +44,20 @@ public class MainActivity extends AppCompatActivity {
     public static int EDIT_REQUEST_CODE = 1;
     public static int ADD_REQUEST_CODE = 2;
     LinearLayoutManager manager;
-
+    private String orderby="orderbytitle";
+    Cursor cursor;
+    long id;
+    ToDoOpenhelper openhelper;
+    SQLiteDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         listView = findViewById( R.id.list );
         arraytodo = new ArrayList<>();
-        ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( this );
-        SQLiteDatabase database = openhelper.getReadableDatabase();
-        Cursor cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null, null );
+      openhelper  = ToDoOpenhelper.getInstance( this );
+      database   = openhelper.getReadableDatabase();
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null, null );
         while (cursor.moveToNext()) {
             String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
             String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             //most important work because when activity reloads  it assigns id to
             //id attribute of todo class ;
 
-            long id = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
+             id = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
             to.setId( id );
             arraytodo.add( to );
 
@@ -134,9 +138,6 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView( listView );
 
 
-//        listView.setOnItemClickListener( this );
-//        listView.setOnItemLongClickListener( this );
-//working for permission granting
         if (ActivityCompat.checkSelfPermission( this, Manifest.permission.RECEIVE_SMS ) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission( this, Manifest.permission.READ_SMS ) == PackageManager.PERMISSION_GRANTED) {
 
         } else {
@@ -147,27 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        todo e = arraytodo.get( i );
-//        int position = i;
-//        String title = e.getTodotitle();
-//        String text = e.getTodotext();
-//        String date = e.getTododate();
-//        String time = e.getTodotime();
-//        Bundle bundle = new Bundle();
-//        bundle.putString( BUNDLE_TITLE_KEY, title );
-//        bundle.putString( BUNDLE_TEXT_KEY, text );
-//        bundle.putString( BUNDLE_DATE_KEY, date );
-//        bundle.putString( BUNDLE_TIME_KEY, time );
-//        bundle.putInt( BUNDLDE_INDEX, position );
-//        bundle.putLong( BUNDLE_ID, e.getId() );
-//        Intent intent = new Intent( MainActivity.this, description.class );
-//        intent.putExtras( bundle );
-//        startActivityForResult( intent, EDIT_REQUEST_CODE );
-//
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate( R.menu.menu, menu );
@@ -176,47 +156,66 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent( MainActivity.this, Addtodo.class );
+        int id=item.getItemId();
+       if(id==R.id.addcheck) {Intent intent = new Intent( MainActivity.this, Addtodo.class );
         startActivityForResult( intent, ADD_REQUEST_CODE );
+       }else if(id==R.id.orderbydate){
+          arraytodo.clear();
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_TIME);
+           while (cursor.moveToNext()) {
+               String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
+               String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
+               String date = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) );
+               String time = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) );
+               todo to = new todo( title, text, date, time );
+
+
+               //most important work because when activity reloads  it assigns id to
+               //id attribute of todo class ;
+
+               long id1 = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
+               to.setId( id1 );
+               arraytodo.add( to );
+
+           }
+           cursor.close();
+
+           adaptor.notifyDataSetChanged();
+
+       }else if(id==R.id.orderbytitle){
+           arraytodo.clear();
+//           ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( this );
+//           SQLiteDatabase database = openhelper.getReadableDatabase();
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_TITLE);
+
+           while (cursor.moveToNext()) {
+               String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
+               String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
+               String date = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) );
+               String time = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) );
+               todo to = new todo( title, text, date, time );
+
+
+               //most important work because when activity reloads  it assigns id to
+               //id attribute of todo class ;
+
+               long id1 = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
+               to.setId( id1 );
+               arraytodo.add( to );
+
+           }
+           cursor.close();
+
+           adaptor.notifyDataSetChanged();
+
+
+
+
+       }
+
         return super.onOptionsItemSelected( item );
     }
 
-
-//    @Override
-//    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        Toast.makeText( MainActivity.this, "ok press", Toast.LENGTH_SHORT ).show();
-//        final todo e1 = arraytodo.get( i );
-//        final int position = i;
-//        AlertDialog.Builder builder = new AlertDialog.Builder( this );
-//        builder.setTitle( "Delete the task" );
-//        builder.setPositiveButton( "delete", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                arraytodo.remove( position );
-//                adaptor.notifyDataSetChanged();
-//                ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( getApplicationContext() );
-//                SQLiteDatabase database = openhelper.getWritableDatabase();
-//                long id1 = e1.getId();
-//                String[] selectArguments = {id1 + ""};
-//                database.delete( Contract.Todo.TABLE_NAME, Contract.Todo.COLUMN_ID + " = ?", selectArguments );
-//
-//                Toast.makeText( MainActivity.this, "ITEM DELETED", Toast.LENGTH_SHORT ).show();
-//
-//            }
-//        } );
-//        builder.setNegativeButton( "NOPE", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                //do nothing here
-//            }
-//        } );
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//
-//
-//        return true;
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -245,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             //todo::nhi tha to todo add nhi hota tha tbhi add activity me hi data to database me add krke
             //todo:::mainctivity ke adaptor ko update kiya aur notify bhi kiya tbhi inhe static bnanan pda h
         } else if (resultCode == Addtodo.RESULT_CODE_ADD_ACTIVITY) {
-//                Bundle bundle=data.getExtras();
+              //  Bundle bundle=data.getExtras();
 
             ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( getApplicationContext() );
             SQLiteDatabase database = openhelper.getWritableDatabase();
@@ -256,17 +255,10 @@ public class MainActivity extends AppCompatActivity {
                 todo to = new todo( cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) ), cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) ), cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) ), cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) ) );
                 arraytodo.add( to );
             }
-
             cursor.close();
             adaptor.notifyDataSetChanged();
-            // manager=new LinearLayoutManager( getApplicationContext(), LinearLayoutManager.VERTICAL,false);
-            //  listView.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL));
-            // listView.setLayoutManager( manager );
             listView.setAdapter( adaptor );
-
         }
-
-
         super.onActivityResult( requestCode, resultCode, data );
     }
 
