@@ -38,16 +38,16 @@ LayoutInflater inflater;
          if(output==null){
 
              output=inflater.inflate( R.layout.todolayout,parent,false );
-             TextView titleTextView=output.findViewById( R.id.textView );
-             TextView textTextView=output.findViewById( R.id.checkbox );
-             TextView dateTextView=output.findViewById( R.id.date );
-             TextView timeTextView=output.findViewById( R.id.time );
-            TodoViewHolder viewHolder=new TodoViewHolder();
-            viewHolder.title=titleTextView;
-            viewHolder.textView=textTextView;
-            viewHolder.dateTextView=dateTextView;
-            viewHolder.timeTextView=timeTextView;
-             output.setTag( viewHolder );
+//             TextView titleTextView=output.findViewById( R.id.textView );
+//             TextView textTextView=output.findViewById( R.id.checkbox );
+//             TextView dateTextView=output.findViewById( R.id.date );
+//             TextView timeTextView=output.findViewById( R.id.time );
+//            TodoViewHolder viewHolder=new TodoViewHolder();
+//            viewHolder.title=titleTextView;
+//            viewHolder.textView=textTextView;
+//            viewHolder.dateTextView=dateTextView;
+//            viewHolder.timeTextView=timeTextView;
+//             output.setTag( viewHolder );
          }
          TodoViewHolder viewHolder=(TodoViewHolder)output.getTag();
 
