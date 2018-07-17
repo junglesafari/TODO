@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -99,11 +100,16 @@ public class MyReceiver extends BroadcastReceiver {
                 int id = cursor.getInt( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
                 String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
                 String description = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
-                if (alarm > currenttime) {
+               String date=cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) );
+               String time=cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) );
+               if (alarm > currenttime) {
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService( Context.ALARM_SERVICE );
                     Intent intent1 = new Intent( context.getApplicationContext(), MyReceiver.class );
                     intent1.putExtra( "title", title );
                     intent1.putExtra( "des", description );
+                    intent.putExtra( "date", date);
+                    intent.putExtra( "time",time );
+                    intent.putExtra( "alarmtime",alarm );
                     PendingIntent pendingIntent = PendingIntent.getBroadcast( context, id, intent1, 0 );
                     alarmManager.set( AlarmManager.RTC_WAKEUP, alarm, pendingIntent );
                 }
@@ -123,12 +129,21 @@ public class MyReceiver extends BroadcastReceiver {
             builder.setContentText( intent.getStringExtra( "des" ) );
             Intent intent1 = new Intent( context, description.class );
             Bundle bundle=new Bundle(  );
+           bundle.putString( MainActivity.BUNDLE_TITLE_KEY,intent.getStringExtra( "title" ) );
             bundle.putString( MainActivity.BUNDLE_TEXT_KEY,intent.getStringExtra( "des" ) );
-           intent1.putExtras( bundle );
-            PendingIntent pendingIntent = PendingIntent.getActivity( context, 2, intent1, 0 );
+            bundle.putString( MainActivity.BUNDLE_TIME_KEY,intent.getStringExtra( "time" ) );
+            bundle.putString( MainActivity.BUNDLE_DATE_KEY,intent.getStringExtra( "date" ) );
+            Log.d( "bundlekeys", intent.getStringExtra( "des" )+"//"+intent.getStringExtra( "time" )+"//"+intent.getStringExtra( "date" ));
+            intent1.putExtras( bundle );
+            int c = Integer.parseInt( String.valueOf( SystemClock.currentThreadTimeMillis() ) );
+            PendingIntent pendingIntent = PendingIntent.getActivity( context, c, intent1, 0 );
             builder.setContentIntent( pendingIntent );
             Notification notification = builder.build();
             manager.notify( 1, notification );
+            builder.setAutoCancel( true );
+
+
+
 
         }
 

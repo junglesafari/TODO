@@ -26,7 +26,9 @@ Button editbutton;
 public static final int TEXT_EDIT_REQUEST_CODE=3;
 public static final int RESULT_CODE_DESCRIPTION_ACTIVITY=4;
 ImageView savetomail;
-ImageView feedback;
+TextView feedback;
+TextView datetextview;
+TextView timetextview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -34,9 +36,15 @@ ImageView feedback;
       description=findViewById( R.id.descriptiontext );
       savetomail=findViewById( R.id.savetomailimage );
          feedback=findViewById( R.id.feedbackimage );
-        final Intent intent=getIntent();
+        datetextview=findViewById( R.id.descriptiondate );
+        timetextview=findViewById( R.id.descriptiontime );
+         final Intent intent=getIntent();
         final Bundle bundle=intent.getExtras();
         String text= bundle.getString( MainActivity.BUNDLE_TEXT_KEY );
+        String date=bundle.getString( MainActivity.BUNDLE_DATE_KEY );
+        String time=bundle.getString( MainActivity.BUNDLE_TIME_KEY );
+        datetextview.setText( date );
+        timetextview.setText( time );
         description.setText( text );
         editbutton=findViewById( R.id.editbutton );
         editbutton.setOnClickListener( new View.OnClickListener() {

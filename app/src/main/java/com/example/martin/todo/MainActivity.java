@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult( intent, ADD_REQUEST_CODE );
        }else if(id==R.id.orderbydate){
           arraytodo.clear();
-           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_TIME);
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_ALARM);
            while (cursor.moveToNext()) {
                String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
                String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );

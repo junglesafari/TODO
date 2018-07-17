@@ -1,52 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".description">
-    <RelativeLayout
-        android:id="@+id/descriptionrootlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="30sp"
+        app:cardElevation="15sp">
+
         <TextView
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
             android:id="@+id/descriptiontext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"/>
+            android:layout_height="match_parent" />
+    </android.support.v7.widget.CardView>
 
-       <Button
-           android:layout_below="@+id/descriptiontext"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/editbutton"
-           android:text="EDIT"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="283dp" />
+
+    <android.support.v7.widget.CardView
+        app:cardElevation="15sp"
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+        <TextView
+            android:textStyle="bold|italic"
+            android:id="@+id/descriptiondate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="192dp" />
+
+    <android.support.v7.widget.CardView
+        app:cardElevation="15sp"
+        android:id="@+id/cardView3"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        <TextView
+            android:textStyle="italic|bold"
+            android:id="@+id/descriptiontime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="15dp"
+        app:cardCornerRadius="20sp"
+        app:cardElevation="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:clickable="true"
             android:id="@+id/savetomailimage"
-            android:layout_below="@+id/editbutton"
-            android:elevation="50dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/savetomailimage"
-            android:focusable="true" />
-        <ImageView
-            android:onClick="feedback"
-            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/gmail" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView4">
+
+        <TextView
             android:id="@+id/feedbackimage"
-            android:layout_marginStart="10dp"
-            android:layout_below="@+id/editbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/feedbackimage"
-            android:layout_toRightOf="@+id/savetomailimage"
-            android:focusable="true" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="feedback"
+            android:text="           Feedback"
+            android:textSize="30sp"
+            android:textStyle="bold|italic"
+
+            />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
+        app:cardElevation="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/editbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:text="EDIT"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context=".description">-->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/descriptionrootlayout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="10dp">-->
+        <!--<TextView-->
+            <!--android:id="@+id/descriptiontext"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="20sp"/>-->
+
+       <!--<Button-->
+           <!--android:layout_below="@+id/descriptiontext"-->
+           <!--android:layout_width="match_parent"-->
+           <!--android:layout_height="wrap_content"-->
+           <!--android:id="@+id/editbutton"-->
+           <!--android:text="EDIT"/>-->
+
+        <!--<ImageView-->
+            <!--android:clickable="true"-->
+            <!--android:id="@+id/savetomailimage"-->
+            <!--android:layout_below="@+id/editbutton"-->
+            <!--android:elevation="50dp"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:src="@drawable/savetomailimage"-->
+            <!--android:focusable="true" />-->
+        <!--<ImageView-->
+            <!--android:onClick="feedback"-->
+            <!--android:clickable="true"-->
+            <!--android:id="@+id/feedbackimage"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--android:layout_below="@+id/editbutton"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:src="@drawable/feedbackimage"-->
+            <!--android:layout_toRightOf="@+id/savetomailimage"-->
+            <!--android:focusable="true" />-->
 
 
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
-</ScrollView>
+<!--</ScrollView>-->
