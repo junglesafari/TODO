@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_TITLE_KEY = "title";
@@ -207,6 +208,98 @@ public class MainActivity extends AppCompatActivity {
            cursor.close();
 
            adaptor.notifyDataSetChanged();
+
+
+
+
+       }else if(id==R.id.thisday){
+
+           arraytodo.clear();
+           long currenttime=System.currentTimeMillis();
+//           ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( this );
+//           SQLiteDatabase database = openhelper.getReadableDatabase();
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_TITLE);
+
+           while (cursor.moveToNext()) {
+               String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
+               String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
+               String date = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) );
+               String time = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) );
+               long alarmtoset=cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ALARM ) );
+               todo to = new todo( title, text, date, time );
+
+
+               //most important work because when activity reloads  it assigns id to
+               //id attribute of todo class ;
+
+               long id1 = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
+               to.setId( id1 );
+             //  long diff=(currenttime-alarmtoset);
+               Calendar calendar=Calendar.getInstance();
+               calendar.setTimeInMillis( alarmtoset );
+               int daycount=calendar.get( Calendar.DAY_OF_WEEK );
+               int monthcount=calendar.get( Calendar.MONTH );
+               int yearcount=calendar.get( Calendar.YEAR );
+               calendar.setTimeInMillis( currenttime );
+               int daytoday=calendar.get( Calendar.DAY_OF_WEEK );
+               int monthtoday=calendar.get( Calendar.MONTH );
+               int yeartoday=calendar.get( Calendar.YEAR );
+               if(yearcount==yeartoday&&monthcount==monthtoday&&daycount==daytoday){
+               arraytodo.add( to );}
+
+           }
+           cursor.close();
+
+           adaptor.notifyDataSetChanged();
+
+       }else if(id==R.id.thismonth){
+Toast.makeText( getApplicationContext(),"this month",Toast.LENGTH_SHORT ).show();
+           arraytodo.clear();
+           long currenttime=System.currentTimeMillis();
+//           ToDoOpenhelper openhelper = ToDoOpenhelper.getInstance( this );
+//           SQLiteDatabase database = openhelper.getReadableDatabase();
+           cursor = database.query( Contract.Todo.TABLE_NAME, null, null, null, null, null,  Contract.Todo.COLUMN_TITLE);
+
+           while (cursor.moveToNext()) {
+               String title = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TITLE ) );
+               String text = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TEXT ) );
+               String date = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_DATE ) );
+               String time = cursor.getString( cursor.getColumnIndex( Contract.Todo.COLUMN_TIME ) );
+               long alarmtoset=cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ALARM ) );
+               todo to = new todo( title, text, date, time );
+
+
+               //most important work because when activity reloads  it assigns id to
+               //id attribute of todo class ;
+
+               long id1 = cursor.getLong( cursor.getColumnIndex( Contract.Todo.COLUMN_ID ) );
+               to.setId( id1 );
+               //  long diff=(currenttime-alarmtoset);
+               Calendar calendar=Calendar.getInstance();
+               calendar.setTimeInMillis( alarmtoset );
+
+               int monthcount=calendar.get( Calendar.MONTH );
+               int yearcount=calendar.get( Calendar.YEAR );
+               calendar.setTimeInMillis( currenttime );
+
+               int monthtoday=calendar.get( Calendar.MONTH );
+               int yeartoday=calendar.get( Calendar.YEAR );
+               Log.d( "mainactivity",title+yearcount+" / "+yeartoday+ "/month count"+monthcount+" /month today"+monthtoday);
+
+               if(yearcount==yeartoday&&monthcount==monthtoday){
+                   arraytodo.add( to );
+               }
+
+           }
+           cursor.close();
+
+           adaptor.notifyDataSetChanged();
+
+
+
+
+
+
 
 
 

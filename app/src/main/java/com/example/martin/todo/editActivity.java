@@ -149,6 +149,12 @@ int databaseprimaryid;
         year=i;
         month=i1;
         day=i2;
+        Intent intent=getIntent();
+        Calendar c=Calendar.getInstance();
+        c.setTimeInMillis(  intent.getLongExtra( "alarmtime",0 ));
+        int hour=c.get( Calendar.HOUR );
+        int minutes=c.get( Calendar.MINUTE );
+        alarm.set(year,month,day,hour,minutes);
 
     }
 

@@ -8,4 +8,6 @@
     />
 <item android:id="@+id/orderbydate" android:title="ORDER BY DATE"/>
     <item android:title="ORDER BY TITLE" android:id="@+id/orderbytitle"/>
+<item android:id="@+id/thisday" android:title="This Day"/>
+<item android:id="@+id/thismonth" android:title="This Month"/>
 </menu>
